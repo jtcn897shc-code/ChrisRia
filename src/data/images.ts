@@ -36,11 +36,15 @@ export const images = {
   cake: set("cake", [420], 420, "A chocolate drip cake topped with gold, piped with Happy New Year.", "Crop of the client's New Year's spread photo"),
 };
 
+// Mature redraw of the original cartoon mascot (Higgsfield, from the client's logo):
+// same chef, same cake-and-skillet pose, editorial illustration style.
 export const logo = {
   webp: "media/logo-480.webp",
+  webp2x: "media/logo-960.webp",
   png: "media/logo-480.png",
   small: "media/logo-240.webp",
+  face: "media/logo-face-128.webp", // round badge for the nav
   width: 480,
-  height: 329,
+  height: 349,
   alt: "ChrisRia logo: a smiling chef holding a layer cake in one hand and a skillet of vegetables in the other.",
 };

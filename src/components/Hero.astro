@@ -23,7 +23,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
 
     <header class="bar wrap">
       <a class="brand" href="#top" aria-label={`${site.shortName}, back to top`}>
-        <img src={a(logo.small)} width="240" height="164" alt="" />
+        <img src={a(logo.face)} width="128" height="128" alt="" />
         <span>{site.shortName}</span>
       </a>
       <nav aria-label="Sections">
@@ -93,7 +93,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     padding-block: var(--space-2);
   }
   .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
-  .brand img { width: 64px; height: auto; }
+  .brand img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cream); }
   .brand span { font-family: var(--font-display); font-size: var(--step-1); }
   nav ul { display: flex; gap: var(--space-3); }
   nav a, .bar-call {
@@ -115,13 +115,22 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     align-self: end;
     padding-bottom: calc(var(--space-5) + var(--scallop));
   }
+  /* The hero line is the brand's own tagline, so it gets the loudest cut: Fraunces at 900
+     with the soft and wonky axes on, set tight like a bakery sign, lifted off the moving
+     photo by a two-layer shadow. (The italic was tested and dropped: oversized italic serif
+     heroes are the stock AI landing page.) */
   h1 {
     font-size: var(--step-5);
-    line-height: 0.95;
-    max-width: 11ch;
+    font-weight: 900;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    letter-spacing: -0.03em;
+    line-height: 0.88;
+    max-width: 10ch;
+    text-shadow: var(--shadow-text);
   }
   .line { display: block; }
   .lede {
+    text-shadow: 0 1px 12px rgb(var(--ink-rgb) / 0.6);
     margin-top: var(--space-3);
     max-width: 30rem;
     font-size: var(--step-1);

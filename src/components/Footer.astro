@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 <footer class="foot">
   <div class="wrap grid">
     <div class="brand">
-      <img src={`${base}/${logo.small}`} width="240" height="164" alt="" loading="lazy" />
+      <img src={`${base}/${logo.webp}`} width="480" height="349" alt="" loading="lazy" />
       <p class="name">{site.name}</p>
       <p class="bio">{site.bio}</p>
     </div>
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
     padding-block: var(--space-5) calc(var(--space-4) + 72px); /* room for the sticky bar */
   }
   .grid { display: grid; gap: var(--space-4); }
-  .brand img { width: 96px; height: auto; }
+  .brand img { width: 160px; height: auto; }
   .name { font-family: var(--font-display); font-size: var(--step-2); margin-top: var(--space-2); }
   .bio { opacity: 0.85; margin-top: 0.25rem; }
   .links { display: grid; gap: 0.25rem; }

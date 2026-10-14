@@ -6,6 +6,14 @@ The logo is a chef holding a layer cake in one hand and a skillet in the other. 
 business: a pastry case and a hot kitchen behind one counter. The site says so directly
 ("Cake in one hand. Skillet in the other.") and uses the mascot as a diagram of the menu.
 
+## Logo
+
+The mascot is a mature redraw of the original cartoon (Higgsfield GPT Image 2.5, from the
+client's logo): same chef, same blonde bob, white jacket, red apron, cake in one hand and
+skillet in the other, on the pink blob. It's drawn as an editorial illustration with adult
+proportions. The nav uses a round crop of her face, which is also the favicon. **The client
+should approve the redraw before launch**; the original is in git history.
+
 ## Palette
 
 Sampled from the logo and the shop, not picked from a swatch book.
@@ -27,8 +35,12 @@ on light grounds.
 
 ## Type
 
-- **Gloock** for display: one weight, high contrast, soft ball terminals. Editorial like
-  the Showit reference, but warmer.
+- **Fraunces** for display, with the `SOFT` axis at 100 so the serifs round off like
+  piped icing. Section heads are set at 560. The hero tagline is the one loud line: 900
+  weight, `WONK` on, tight leading, lifted off the photo by `--shadow-text`, so it reads
+  like a bakery sign. It replaced Gloock, which read bland over the video. Rejected
+  alternatives: Bodoni Moda (its hairlines vanish over moving footage) and Fraunces italic
+  (the stock AI-startup hero, flagged by the design detector).
 - **Figtree** for body and UI: round, friendly, legible at 16–17px.
 - **Homemade Apple**: handwritten notes, at most three on the page. The font name
   matches the brand's "homemade" voice.

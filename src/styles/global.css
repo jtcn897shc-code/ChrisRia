@@ -25,9 +25,10 @@ img, video { height: auto; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 560;
+  font-variation-settings: "SOFT" 100, "WONK" 0; /* Fraunces: soft, rounded serifs like piped icing */
   line-height: 1.02;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   margin: 0;
   text-wrap: balance;
 }

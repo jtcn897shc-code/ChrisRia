@@ -25,7 +25,7 @@
   --line: rgb(var(--ink-rgb) / 0.18);        /* hairlines on paper */
   --line-strong: rgb(var(--ink-rgb) / 0.38); /* control borders on paper */
 
-  --font-display: "Gloock", "Georgia", serif;
+  --font-display: "Fraunces", "Georgia", serif;
   --font-body: "Figtree", system-ui, sans-serif;
   --font-hand: "Homemade Apple", "Segoe Script", cursive;
 
@@ -56,6 +56,8 @@
 
   /* One elevation: offset, soft, ink-tinted. */
   --shadow-lift: 0 24px 48px -24px rgb(var(--ink-rgb) / 0.55);
+  /* Type over photography: a tight contact shadow plus a wide soft one. */
+  --shadow-text: 0 1px 2px rgb(var(--ink-rgb) / 0.35), 0 10px 40px rgb(var(--ink-rgb) / 0.55);
 
   /* Motion (from the animate skill's tables, not hand-rolled) */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
