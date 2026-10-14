@@ -83,8 +83,8 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
   .scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to top, rgb(43 24 19 / 0.88) 0%, rgb(43 24 19 / 0.55) 38%, rgb(43 24 19 / 0) 70%),
-      linear-gradient(to bottom, rgb(43 24 19 / 0.55), rgb(43 24 19 / 0) 22%);
+      linear-gradient(to top, rgb(var(--ink-rgb) / 0.88) 0%, rgb(var(--ink-rgb) / 0.55) 38%, rgb(var(--ink-rgb) / 0) 70%),
+      linear-gradient(to bottom, rgb(var(--ink-rgb) / 0.55), rgb(var(--ink-rgb) / 0) 22%);
   }
 
   .bar {
@@ -93,7 +93,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     padding-block: var(--space-2);
   }
   .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
-  .brand img { width: 64px; height: auto; filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.25)); }
+  .brand img { width: 64px; height: auto; }
   .brand span { font-family: var(--font-display); font-size: var(--step-1); }
   nav ul { display: flex; gap: var(--space-3); }
   nav a, .bar-call {

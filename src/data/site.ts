@@ -63,7 +63,7 @@ export const hands = {
   savory: {
     note: "that hand",
     title: "Savory",
-    lede: "Hot food to take home, sandwiches pressed while you wait, and party trays big enough for the whole family.",
+    lede: "Hot food to take home, paninis and sandwiches, and party trays big enough for the whole family.",
     items: [
       "Lunch and dinner to go", // (confirmed) window decal
       "Paninis and sandwiches", // (confirmed) window decal
@@ -82,7 +82,7 @@ export const grazing = {
 // A real sequence, so numbered markers are honest here.
 export const cakeSteps = [
   { title: "Send us the date", body: "And a photo or a few words about what you have in mind: flavour, colours, writing on top." },
-  { title: "We confirm the details", body: "Size, design and price, before anything goes in the oven." }, // TODO: confirm deposit / lead-time policy with the client
+  { title: "We confirm the details", body: "Size, design and price, so you know exactly what you're getting." }, // TODO: confirm deposit / lead-time policy with the client
   { title: "Pick it up on Young Rd", body: "Or ask about delivery." }, // (confirmed) delivery is a listed service
 ];
 

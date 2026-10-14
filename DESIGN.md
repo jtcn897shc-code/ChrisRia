@@ -40,9 +40,11 @@ Scale is 1.25 from a 17px body (`--step--1` … `--step-5`).
 - **Scalloped edge**: the bakery box, and the Grainhaus reference. Used where a light
   section rises over a dark one.
 - **The logo's blob**: used as a photo mask (`clip-path: url(#blob)`).
-- **Walnut slats**: the real wall behind the counter, as a CSS repeating gradient.
+- **Walnut slats**: a texture cut from their own counter photo (`public/media/slats.webp`, an 8px slat period tiled seamlessly), fading into solid walnut behind any text. Gold on the lightest slat is 2.6:1, so text never sits on the raw wall.
 - **The plate**: a circular photo with a cream rim (Grainhaus).
-- Two radii only: pill for controls, 14px for the one form panel and the storefront photo.
+- Two radii only: `--radius-pill` for small controls, `--radius-soft` (14px) for every rounded rectangle (form panel, fields, message bubble, storefront photo, reveal clip). Circles (plate, stamp, step numbers) are shapes.
+- One elevation: `--shadow-lift`, used by the plate and the desktop order pill.
+- Translucent ink only through `--ink-rgb`, `--line` and `--line-strong`. No raw hex in components.
 
 ## Motion
 

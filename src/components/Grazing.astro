@@ -96,7 +96,7 @@ const img = images.grazing;
   /* Reveal: clip lives on the inner wrapper, never on the observed element (an element
      clipped to nothing never intersects, so it would never un-clip). */
   :global(.motion) .clip {
-    clip-path: inset(10% 14% round 28px);
+    clip-path: inset(10% 14% round var(--radius-soft));
     transition: clip-path var(--dur-reveal) var(--ease-in-out);
   }
   :global(.motion) .clip img { transform: scale(1.08); transition: transform 900ms var(--ease-out); }
@@ -128,7 +128,7 @@ const img = images.grazing;
   .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
   .chip span {
     display: inline-flex; align-items: center; min-height: 44px; padding: 0.5rem 1rem;
-    border: 1.5px solid rgb(43 24 19 / 0.35); border-radius: var(--radius-pill);
+    border: 1.5px solid var(--line-strong); border-radius: var(--radius-pill);
     font-weight: 500;
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
@@ -142,8 +142,8 @@ const img = images.grazing;
   .field input, .field textarea {
     width: 100%;
     font: 400 1rem/1.4 var(--font-body); /* 16px: no iOS zoom on focus */
-    color: var(--ink); background: #fff;
-    border: 1.5px solid rgb(43 24 19 / 0.35); border-radius: 10px;
+    color: var(--ink); background: var(--field);
+    border: 1.5px solid var(--line-strong); border-radius: var(--radius-soft);
     padding: 0.7rem 0.8rem; min-height: 48px;
   }
   .field textarea { resize: vertical; }
@@ -152,7 +152,7 @@ const img = images.grazing;
   .bubble {
     display: block;
     background: var(--pink);
-    border-radius: 18px 18px 18px 4px;
+    border-radius: var(--radius-soft) var(--radius-soft) var(--radius-soft) 4px;
     padding: 0.85rem 1rem;
     white-space: pre-wrap; overflow-wrap: anywhere;
   }

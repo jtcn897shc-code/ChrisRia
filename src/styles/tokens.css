@@ -11,14 +11,19 @@
 :root {
   --paper: #fbf0f2;      /* blush paper: logo blob diluted */
   --ink: #2b1813;        /* espresso: the chocolate cake */
+  --ink-rgb: 43 24 19;   /* for translucent ink: rgb(var(--ink-rgb) / a) */
   --ink-soft: #6b4a40;   /* secondary text on paper, 7.0:1 */
   --red: #c42029;        /* the apron and the skillet */
   --red-deep: #9e1820;   /* pressed state */
   --pink: #f0c3e3;       /* the logo's blob, sampled */
   --walnut: #5e3823;     /* the slat wall behind the counter */
-  --walnut-line: #4a2b1a;
+  --walnut-rgb: 94 56 35;
   --gold: #d9ae4f;       /* the CHRISRIA letters */
   --cream: #fff8ef;      /* text on dark grounds */
+  --field: #ffffff;      /* form field fill */
+  --on-red: #ffffff;     /* text on red fills, 5.9:1 */
+  --line: rgb(var(--ink-rgb) / 0.18);        /* hairlines on paper */
+  --line-strong: rgb(var(--ink-rgb) / 0.38); /* control borders on paper */
 
   --font-display: "Gloock", "Georgia", serif;
   --font-body: "Figtree", system-ui, sans-serif;
@@ -31,7 +36,7 @@
   --step-2: 1.625rem;
   --step-3: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem);
   --step-4: clamp(2.4rem, 1.6rem + 3.2vw, 4rem);
-  --step-5: clamp(3rem, 1.6rem + 6vw, 7rem);
+  --step-5: clamp(3rem, 1.6rem + 5vw, 6rem);
 
   /* Spacing: spacious marketing rhythm */
   --space-1: 0.5rem;
@@ -43,9 +48,14 @@
   --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
   --measure: 34rem;
 
-  /* Radii: two only. Pills for controls, blobs for photos; cards don't exist. */
+  /* Radii: two only. Pill for small controls; 14px for every rectangle that rounds
+     (form panel, fields, message bubble, photos). Circles (plate, stamp, step numbers)
+     are shapes, not radii. Blob photos use the logo's clip path. */
   --radius-pill: 999px;
   --radius-soft: 14px;
+
+  /* One elevation: offset, soft, ink-tinted. */
+  --shadow-lift: 0 24px 48px -24px rgb(var(--ink-rgb) / 0.55);
 
   /* Motion (from the animate skill's tables, not hand-rolled) */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

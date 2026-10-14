@@ -17,18 +17,23 @@ body {
 }
 
 img, video, svg { display: block; max-width: 100%; }
+
+/* Browser surfaces carry the palette too. */
+::selection { background: var(--pink); color: var(--ink); }
+html { accent-color: var(--red); caret-color: var(--red); scrollbar-color: var(--walnut) var(--paper); }
 img, video { height: auto; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.02;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin: 0;
   text-wrap: balance;
 }
 p { margin: 0; text-wrap: pretty; }
 a { color: inherit; }
+a[href^="tel:"] { white-space: nowrap; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible {
@@ -62,7 +67,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Buttons ---------- */
 .btn {
   --bg: var(--red);
-  --fg: #fff;
+  --fg: var(--on-red);
   display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
   min-height: 48px; padding: 0.75rem 1.4rem;
   border-radius: var(--radius-pill);
@@ -97,12 +102,26 @@ ul { margin: 0; padding: 0; list-style: none; }
     linear-gradient(#000 0 0) 0 var(--scallop) / 100% 100% no-repeat;
 }
 
-/* ---------- Walnut slat ground (the wall behind their counter) ---------- */
+/* ---------- Walnut slat wall: a texture cut from their own counter photo ----------
+   The component sets --slats to the image URL (it needs the site base path).
+   Text never sits on the raw slats (gold drops to 2.6:1 on the light slats):
+   the wall fades into solid walnut behind the copy. */
 .slats {
   --focus: var(--cream);
   background-color: var(--walnut);
-  background-image: repeating-linear-gradient(90deg, transparent 0 22px, var(--walnut-line) 22px 28px);
+  background-image:
+    linear-gradient(to bottom, rgb(var(--walnut-rgb) / 0) 0 30%, var(--walnut) 52%),
+    var(--slats, none);
+  background-size: 100% 100%, 352px 100%;
+  background-repeat: no-repeat, repeat-x;
   color: var(--cream);
+}
+@media (min-width: 900px) {
+  .slats {
+    background-image:
+      linear-gradient(to right, rgb(var(--walnut-rgb) / 0) 0 34%, var(--walnut) 52%),
+      var(--slats, none);
+  }
 }
 
 /* ---------- Blob photos: the logo's pink blob as an image mask ---------- */

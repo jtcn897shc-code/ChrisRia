@@ -30,7 +30,7 @@ const cols = [
       {cols.map(({ key, data, img, mask }) => (
         <article class={`col ${key}`}>
           <p class="hand note" aria-hidden="true">
-            {data.note}
+            <span>{data.note}</span>
             <svg class="arrow" viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 62 C 30 60, 70 50, 104 14" />
               <path d="M88 14 L105 12 L102 29" />
@@ -55,6 +55,7 @@ const cols = [
 
 <style>
   .hands {
+    overflow-x: clip; /* the savory photo bleeds off the edge; clip (not hidden) keeps the mascot sticky */
     background: var(--paper);
     padding-block: calc(var(--space-6) + var(--scallop)) var(--space-6);
     z-index: 3;
@@ -69,37 +70,42 @@ const cols = [
     gap: var(--space-5);
     margin-top: var(--space-5);
   }
-  .mascot { margin: 0; justify-self: center; width: min(78vw, 400px); }
+  .mascot { margin: 0; justify-self: center; width: min(100%, 520px); }
   .mascot img { width: 100%; height: auto; }
 
-  h3 { font-size: var(--step-3); color: var(--red); }
-  .note { display: flex; align-items: flex-end; gap: 0.25rem; margin-bottom: var(--space-1); }
-  .arrow { width: 72px; height: 42px; flex: none; }
+  /* The labels are the diagram's callouts: big, red, and aimed at the cake and the skillet. */
+  h3 { font-size: var(--step-4); color: var(--red); }
+  .note { display: flex; align-items: flex-end; gap: 0.35rem; margin-bottom: 0.25rem; font-size: clamp(1.15rem, 0.9rem + 0.8vw, 1.5rem); }
+  .arrow { width: clamp(72px, 6vw, 104px); height: auto; aspect-ratio: 120 / 70; flex: none; }
   .lede { margin-top: var(--space-2); max-width: 30rem; }
-  ul { margin-top: var(--space-3); border-top: 1px solid rgb(43 24 19 / 0.18); }
+  ul { margin-top: var(--space-3); border-top: 1px solid var(--line); }
   li {
     padding-block: 0.7rem;
-    border-bottom: 1px solid rgb(43 24 19 / 0.18);
+    border-bottom: 1px solid var(--line);
     font-weight: 500;
   }
   .photo { margin-top: var(--space-4); aspect-ratio: 5 / 4; }
+  /* The two sides are not twins: the savory spread is the bigger, wider photo and runs off the page edge. */
+  .savory .photo { aspect-ratio: 8 / 5; margin-right: calc(-1 * var(--gutter)); }
   .photo img { width: 100%; height: 100%; object-fit: cover; }
 
   /* On phones the arrows point up at the logo above. */
   @media (max-width: 959px) {
-    .arrow { transform: rotate(-60deg) scaleX(-1); }
     .savory .arrow { transform: rotate(-40deg); }
   }
 
   @media (min-width: 960px) {
     .grid {
-      grid-template-columns: 1fr minmax(300px, 400px) 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 520px) minmax(0, 1fr);
       align-items: start;
-      gap: var(--space-4);
+      gap: var(--space-3);
+      margin-top: var(--space-4);
     }
-    .mascot { grid-column: 2; grid-row: 1; width: 100%; position: sticky; top: 12vh; }
-    .sweet { grid-column: 1; grid-row: 1; padding-top: var(--space-5); }
-    .savory { grid-column: 3; grid-row: 1; padding-top: calc(var(--space-6) * 1.6); }
+    .mascot { grid-column: 2; grid-row: 1; width: 100%; position: sticky; top: 10vh; }
+    /* Callouts sit level with what they point at: the cake is high, the skillet a little lower. */
+    .sweet { grid-column: 1; grid-row: 1; padding-top: 2rem; }
+    .savory { grid-column: 3; grid-row: 1; padding-top: 6.5rem; }
+    .savory .photo { width: calc(100% + 12vw); margin-right: 0; }
     /* Sweet's arrow reaches right to the cake; savory's reaches left to the skillet. */
     .sweet .note { justify-content: flex-end; }
     .savory .note { flex-direction: row-reverse; justify-content: flex-end; }

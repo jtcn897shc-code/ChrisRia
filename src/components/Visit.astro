@@ -6,9 +6,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", ");
 const img = images.storefront;
 const p = site.proof;
-const stampText = `${p.recommendPct}% of ${p.reviewCount} ${p.source} reviewers recommend us • `;
+const stampText = `Recommended on ${p.source} • `;
 ---
-<section class="visit slats" id="visit" aria-labelledby="visit-title">
+<section class="visit slats" id="visit" aria-labelledby="visit-title" style={`--slats: url(${base}/media/slats.webp)`}>
   <div class="wrap grid">
     <div class="pic">
       <div class="photo photo-zoom">
@@ -22,8 +22,9 @@ const stampText = `${p.recommendPct}% of ${p.reviewCount} ${p.source} reviewers 
         <svg viewBox="0 0 200 200" aria-hidden="true">
           <defs><path id="ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0" /></defs>
           <circle cx="100" cy="100" r="96" />
-          <text><textPath href="#ring" textLength="462">{stampText}</textPath></text>
-          <text class="big" x="100" y="114" text-anchor="middle">{p.recommendPct}%</text>
+          <text class="ring"><textPath href="#ring" textLength="462" lengthAdjust="spacing">{stampText}</textPath></text>
+          <text class="big" x="100" y="108" text-anchor="middle">{p.recommendPct}%</text>
+          <text class="small" x="100" y="134" text-anchor="middle">{p.reviewCount} reviews</text>
         </svg>
       </a>
     </div>
@@ -36,6 +37,10 @@ const stampText = `${p.recommendPct}% of ${p.reviewCount} ${p.source} reviewers 
         </a>
       </address>
       <p class="patio">There are bistro tables out front when the weather's on our side.</p>
+      <p class="proof">
+        {p.recommendPct}% of {p.reviewCount} reviewers on {p.source} recommend us.
+        <a href={p.href} target="_blank" rel="noopener">Read the reviews</a>
+      </p>
 
       <dl>
         <div>
@@ -70,7 +75,7 @@ const stampText = `${p.recommendPct}% of ${p.reviewCount} ${p.source} reviewers 
 
   .stamp {
     position: absolute; right: 0.25rem; bottom: -2rem;
-    width: clamp(132px, 22vw, 176px);
+    width: clamp(150px, 22vw, 184px);
     transform: rotate(-10deg);
     transition: transform 200ms ease;
   }
@@ -78,13 +83,17 @@ const stampText = `${p.recommendPct}% of ${p.reviewCount} ${p.source} reviewers 
   @media (min-width: 900px) { .stamp { right: -1.5rem; } }
   .stamp svg { width: 100%; height: auto; }
   .stamp circle { fill: var(--pink); }
-  .stamp text { fill: var(--ink); font: 600 13.5px var(--font-body); letter-spacing: 0.02em; }
-  .stamp .big { font: 400 58px var(--font-display); letter-spacing: -0.02em; }
+  .stamp text { fill: var(--ink); }
+  .stamp .ring { font: 600 19px var(--font-body); }
+  .stamp .big { font: 400 54px var(--font-display); letter-spacing: -0.02em; }
+  .stamp .small { font: 600 17px var(--font-body); }
 
   h2 { font-size: var(--step-4); }
   address { font-style: normal; margin-top: var(--space-3); font-size: var(--step-2); line-height: 1.3; }
   address a { text-decoration-color: var(--gold); text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
-  .patio { margin-top: var(--space-2); opacity: 0.9; }
+  .patio { margin-top: var(--space-2); }
+  .proof { margin-top: var(--space-2); }
+  .proof a { font-weight: 600; text-decoration-color: var(--gold); text-underline-offset: 0.2em; }
 
   dl { margin: var(--space-4) 0 0; display: grid; gap: var(--space-3); }
   dt { color: var(--gold); font-weight: 600; }
