@@ -1,0 +1,215 @@
+---
+import { site, grazing, orderKinds, defaultOrderText } from "../data/site";
+import { images } from "../data/images";
+import Icon from "./Icon.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const a = (p: string) => `${base}/${p}`;
+const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", ");
+const img = images.grazing;
+---
+<section class="grazing" id="grazing" aria-labelledby="grazing-title">
+  <figure class="spread" data-reveal>
+    <div class="clip">
+      <img
+        src={a(img.src)} srcset={srcset(img.srcset)} sizes="100vw"
+        width={img.width} height={img.height} alt={img.alt} loading="lazy" decoding="async"
+      />
+    </div>
+  </figure>
+
+  <div class="wrap body">
+    <div class="pitch">
+      <h2 id="grazing-title">{grazing.title}</h2>
+      <p class="text">{grazing.body}</p>
+      <p class="contents"><span class="visually-hidden">On the table: </span>{grazing.contents.join(", ")}.</p>
+    </div>
+
+    <!-- Real GET form to WhatsApp: without JS it still sends the default message.
+         With JS the hidden "text" field is rewritten from the answers below. -->
+    <form class="composer" id="order" action={`https://wa.me/${site.whatsapp}`} method="get" target="_blank" data-composer>
+      <h3>Plan your order</h3>
+      <p class="hint">Answer what you know. It becomes a WhatsApp message you can edit before sending.</p>
+
+      <fieldset>
+        <legend>What are you planning?</legend>
+        <div class="chips">
+          {orderKinds.map((k, i) => (
+            <label class="chip">
+              <input type="radio" name="kind" value={k} checked={i === 0} form="none" />
+              <span>{k}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div class="row">
+        <label class="field">
+          <span>Date</span>
+          <input type="date" data-field="date" />
+        </label>
+        <label class="field">
+          <span>How many people?</span>
+          <input type="number" min="1" max="2000" inputmode="numeric" placeholder="e.g. 30" data-field="guests" />
+        </label>
+      </div>
+
+      <fieldset>
+        <legend>Pickup or delivery?</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="handoff" value="pickup" form="none" checked /><span>Pickup on Young Rd</span></label>
+          <label class="chip"><input type="radio" name="handoff" value="delivery" form="none" /><span>Delivery</span></label>
+        </div>
+      </fieldset>
+
+      <label class="field">
+        <span>Anything else?</span>
+        <textarea rows="3" placeholder="Flavours, allergies, a colour theme…" data-field="notes"></textarea>
+      </label>
+
+      <div class="preview">
+        <span class="preview-label" id="preview-label">Your message</span>
+        <output class="bubble" aria-labelledby="preview-label" data-preview>{defaultOrderText}</output>
+      </div>
+
+      <input type="hidden" name="text" value={defaultOrderText} data-text />
+      <button class="btn send" type="submit"><Icon name="whatsapp" /> Send on WhatsApp</button>
+      <p class="alt">
+        Rather talk? Call <a href={site.phone.href}>{site.phone.display}</a>, or
+        <a href={`mailto:${site.email}?subject=${encodeURIComponent("Order enquiry")}&body=${encodeURIComponent(defaultOrderText)}`} data-mail={site.email}>send it by email</a>.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .grazing {
+    --focus: var(--cream);
+    position: relative; z-index: 3;
+    background: var(--ink);
+    color: var(--cream);
+    padding-bottom: var(--space-6);
+  }
+  .spread { margin: 0; }
+  .clip { overflow: hidden; }
+  .clip img { width: 100%; height: min(78svh, 64vw); min-height: 320px; object-fit: cover; object-position: 50% 45%; }
+
+  /* Reveal: clip lives on the inner wrapper, never on the observed element (an element
+     clipped to nothing never intersects, so it would never un-clip). */
+  :global(.motion) .clip {
+    clip-path: inset(10% 14% round 28px);
+    transition: clip-path var(--dur-reveal) var(--ease-in-out);
+  }
+  :global(.motion) .clip img { transform: scale(1.08); transition: transform 900ms var(--ease-out); }
+  :global(.motion) .spread[data-visible] .clip { clip-path: inset(0 round 0); }
+  :global(.motion) .spread[data-visible] .clip img { transform: none; }
+
+  .body {
+    display: grid; gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  h2 { font-size: var(--step-4); max-width: 14ch; }
+  .text { margin-top: var(--space-3); max-width: var(--measure); font-size: var(--step-1); line-height: 1.5; }
+  .contents { margin-top: var(--space-3); max-width: var(--measure); color: var(--gold); font-weight: 500; }
+
+  .composer {
+    background: var(--paper); color: var(--ink);
+    --focus: var(--ink);
+    border-radius: var(--radius-soft);
+    padding: clamp(1.25rem, 1rem + 2vw, 2.25rem);
+    display: grid; gap: var(--space-3);
+    align-self: start;
+  }
+  .composer h3 { font-size: var(--step-3); }
+  .hint { color: var(--ink-soft); margin-top: calc(-1 * var(--space-2)); }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  legend, .field > span, .preview-label { font-weight: 600; margin-bottom: 0.5rem; display: block; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0.5rem 1rem;
+    border: 1.5px solid rgb(43 24 19 / 0.35); border-radius: var(--radius-pill);
+    font-weight: 500;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  .chip input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .chip input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) {
+    .chip:hover input:not(:checked) + span { border-color: var(--ink); }
+  }
+
+  .row { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  .field input, .field textarea {
+    width: 100%;
+    font: 400 1rem/1.4 var(--font-body); /* 16px: no iOS zoom on focus */
+    color: var(--ink); background: #fff;
+    border: 1.5px solid rgb(43 24 19 / 0.35); border-radius: 10px;
+    padding: 0.7rem 0.8rem; min-height: 48px;
+  }
+  .field textarea { resize: vertical; }
+  .field input:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+
+  .bubble {
+    display: block;
+    background: var(--pink);
+    border-radius: 18px 18px 18px 4px;
+    padding: 0.85rem 1rem;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .send { justify-self: start; }
+  .alt { color: var(--ink-soft); }
+  .alt a { color: var(--ink); font-weight: 600; }
+
+  @media (min-width: 960px) {
+    .body { grid-template-columns: 1fr minmax(0, 30rem); align-items: start; }
+    .pitch { position: sticky; top: var(--space-5); }
+  }
+</style>
+
+<script>
+  // 1) One-shot reveal for the big photo.
+  const spread = document.querySelector<HTMLElement>(".grazing [data-reveal]");
+  if (spread && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { spread.setAttribute("data-visible", ""); io.disconnect(); }
+      }
+    }, { threshold: 0.2 });
+    io.observe(spread);
+  } else {
+    spread?.setAttribute("data-visible", "");
+  }
+
+  // 2) Order composer: answers -> WhatsApp text. No animation; it updates per keystroke.
+  const form = document.querySelector<HTMLFormElement>("[data-composer]");
+  if (form) {
+    const text = form.querySelector<HTMLInputElement>("[data-text]")!;
+    const preview = form.querySelector<HTMLOutputElement>("[data-preview]")!;
+    const mail = form.querySelector<HTMLAnchorElement>("[data-mail]")!;
+    const val = (sel: string) => form.querySelector<HTMLInputElement>(sel)?.value.trim() ?? "";
+    const fmtDate = (iso: string) => {
+      const d = new Date(iso + "T12:00:00");
+      return isNaN(+d) ? "" : d.toLocaleDateString("en-CA", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+    };
+
+    const compose = () => {
+      const kind = val('input[name="kind"]:checked');
+      const date = fmtDate(val('[data-field="date"]'));
+      const guests = val('[data-field="guests"]');
+      const handoff = val('input[name="handoff"]:checked');
+      const notes = val('[data-field="notes"]');
+      const what = kind === "Something else" ? "an order" : `a ${kind.toLowerCase()}`;
+      let msg = `Hi ChrisRia! I'd like to ask about ${what}`;
+      if (date) msg += ` for ${date}`;
+      if (guests) msg += `${date ? "," : ""} for about ${guests} ${guests === "1" ? "person" : "people"}`;
+      msg += handoff === "delivery" ? ", delivered." : ", for pickup.";
+      if (notes) msg += `\n\n${notes}`;
+      text.value = msg;
+      preview.textContent = msg;
+      mail.href = `mailto:${mail.dataset.mail}?subject=${encodeURIComponent(`Order enquiry: ${kind}`)}&body=${encodeURIComponent(msg)}`;
+    };
+    form.addEventListener("input", compose);
+    form.addEventListener("change", compose);
+    compose();
+  }
+</script>

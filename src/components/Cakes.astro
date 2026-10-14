@@ -1,0 +1,75 @@
+---
+import { cakeSteps } from "../data/site";
+import { images } from "../data/images";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const img = images.cake;
+---
+<section class="cakes scallop-top" id="cakes" aria-labelledby="cakes-title">
+  <div class="wrap grid">
+    <figure class="plate">
+      <img src={`${base}/${img.src}`} width={img.width} height={img.height} alt={img.alt} loading="lazy" decoding="async" />
+      <figcaption class="hand">a New Year's order</figcaption>
+    </figure>
+
+    <div>
+      <h2 id="cakes-title">Custom cakes, start to finish.</h2>
+      <ol>
+        {cakeSteps.map((s, i) => (
+          <li>
+            <span class="n" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <a class="btn" href="#order" data-pick="Custom cake">Start a cake order</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cakes {
+    position: relative; z-index: 3;
+    background: var(--pink);
+    padding-block: calc(var(--space-6) + var(--scallop)) var(--space-6);
+  }
+  .grid { display: grid; gap: var(--space-5); align-items: center; }
+  .plate { margin: 0; position: relative; justify-self: center; width: min(80vw, 420px); }
+  /* The Grainhaus-style plate: photo in a circle with a cream rim. */
+  .plate img {
+    width: 100%; aspect-ratio: 1; object-fit: cover;
+    border-radius: 50%;
+    border: clamp(12px, 2.4vw, 22px) solid var(--cream);
+    box-shadow: 0 30px 60px -30px rgb(43 24 19 / 0.55);
+  }
+  .plate figcaption { position: absolute; right: 0; bottom: -0.5rem; color: var(--ink); }
+  @media (min-width: 900px) { .plate figcaption { right: -1.5rem; bottom: 0.5rem; } }
+
+  h2 { font-size: var(--step-4); max-width: 12ch; }
+  ol { list-style: none; margin: var(--space-4) 0; padding: 0; display: grid; gap: var(--space-3); }
+  li { display: grid; grid-template-columns: 3rem 1fr; gap: var(--space-2); align-items: start; }
+  .n {
+    width: 3rem; height: 3rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--ink); color: var(--cream);
+    font-family: var(--font-display); font-size: var(--step-1);
+  }
+  h3 { font-family: var(--font-body); font-weight: 700; font-size: var(--step-1); line-height: 1.3; padding-top: 0.35rem; }
+  li p { margin-top: 0.2rem; max-width: 30rem; }
+
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: var(--space-6); }
+  }
+</style>
+
+<script>
+  // "Start a cake order" pre-selects the cake option in the composer. Without JS it just jumps there.
+  document.querySelectorAll<HTMLAnchorElement>("[data-pick]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const radio = document.querySelector<HTMLInputElement>(`input[name="kind"][value="${link.dataset.pick}"]`);
+      if (radio) { radio.checked = true; radio.dispatchEvent(new Event("change", { bubbles: true })); }
+    });
+  });
+</script>

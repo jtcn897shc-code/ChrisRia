@@ -1,0 +1,82 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+import { images } from "../data/images";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const title = `${site.name} | Cakes, grazing tables and lunch to go in Chilliwack`;
+const description =
+  "Homemade meals and desserts on Young Rd, Chilliwack: lunch and dinner to go, paninis, pastries, custom cakes and grazing tables. Order on WhatsApp or call (778) 987-1469.";
+
+// No aggregateRating on purpose: the 94% figure is Facebook's, not a first-party rating.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  name: site.name,
+  description,
+  url: site.url,
+  telephone: "+1-778-987-1469",
+  email: site.email,
+  priceRange: "$$",
+  image: `${site.url}${images.counter.src}`,
+  servesCuisine: ["Bakery", "Cafe", "Catering"],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postal,
+    addressCountry: "CA",
+  },
+};
+---
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fbf0f2" />
+    <link rel="canonical" href={site.url} />
+    <link rel="icon" href={`${base}/favicon.ico`} sizes="32x32" />
+    <link rel="icon" href={`${base}/favicon.png`} type="image/png" />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${site.url}${images.counter.src}`} />
+
+    <!-- Runs before first paint: reveal/scrub styles only apply once JS is proven to run. -->
+    <script is:inline>
+      (function (d) {
+        d.classList.add("js");
+        var save = navigator.connection && navigator.connection.saveData;
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !save) d.classList.add("motion");
+      })(document.documentElement);
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gloock&family=Homemade+Apple&display=swap"
+    />
+    <link rel="preload" as="image" href={`${base}/${images.heroPoster.src}`} media="(min-width: 700px)" />
+    <link rel="preload" as="image" href={`${base}/${images.heroPosterMobile.src}`} media="(max-width: 699px)" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!-- The logo's pink blob, reused as a photo mask. -->
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+      <clipPath id="blob" clipPathUnits="objectBoundingBox">
+        <path d="M0.53,0.02 C0.71,0.01 0.83,0.13 0.86,0.3 C0.89,0.45 0.99,0.56 0.99,0.73 C0.99,0.9 0.84,0.99 0.62,0.99 C0.4,0.99 0.15,1 0.05,0.86 C-0.03,0.73 0.04,0.58 0.12,0.46 C0.21,0.32 0.31,0.03 0.53,0.02 Z" />
+      </clipPath>
+      <clipPath id="blob-alt" clipPathUnits="objectBoundingBox">
+        <path d="M0.42,0.01 C0.62,-0.01 0.8,0.06 0.9,0.2 C0.99,0.33 0.96,0.5 0.97,0.66 C0.98,0.85 0.86,0.99 0.6,0.99 C0.36,0.99 0.13,0.97 0.05,0.8 C-0.02,0.65 0.06,0.5 0.05,0.35 C0.04,0.16 0.2,0.03 0.42,0.01 Z" />
+      </clipPath>
+    </svg>
+    <slot />
+  </body>
+</html>

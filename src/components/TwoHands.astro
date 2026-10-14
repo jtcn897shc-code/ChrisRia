@@ -1,0 +1,109 @@
+---
+import { hands } from "../data/site";
+import { images, logo } from "../data/images";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const a = (p: string) => `${base}/${p}`;
+const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", ");
+const cols = [
+  { key: "sweet", data: hands.sweet, img: images.desserts, mask: "blob" },
+  { key: "savory", data: hands.savory, img: images.spread, mask: "blob-alt" },
+] as const;
+---
+<section class="hands scallop-top" id="menu" aria-labelledby="hands-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="hands-title">Cake in one hand. Skillet in the other.</h2>
+      <p>
+        Our logo isn't just cute. It's the menu: a pastry case and a hot kitchen behind the same counter,
+        so the birthday cake and the dinner for after can come home in one trip.
+      </p>
+    </div>
+
+    <div class="grid">
+      <figure class="mascot">
+        <picture>
+          <source srcset={a(logo.webp)} type="image/webp" />
+          <img src={a(logo.png)} width={logo.width} height={logo.height} alt={logo.alt} loading="lazy" />
+        </picture>
+      </figure>
+
+      {cols.map(({ key, data, img, mask }) => (
+        <article class={`col ${key}`}>
+          <p class="hand note" aria-hidden="true">
+            {data.note}
+            <svg class="arrow" viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 62 C 30 60, 70 50, 104 14" />
+              <path d="M88 14 L105 12 L102 29" />
+            </svg>
+          </p>
+          <h3>{data.title}</h3>
+          <p class="lede">{data.lede}</p>
+          <ul>
+            {data.items.map((i) => <li>{i}</li>)}
+          </ul>
+          <div class={`photo photo-zoom ${mask}`}>
+            <img
+              src={a(img.src)} srcset={srcset(img.srcset)} sizes="(min-width: 960px) 30vw, 92vw"
+              width={img.width} height={img.height} alt={img.alt} loading="lazy" decoding="async"
+            />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hands {
+    background: var(--paper);
+    padding-block: calc(var(--space-6) + var(--scallop)) var(--space-6);
+    z-index: 3;
+  }
+  .head { max-width: 46rem; }
+  h2 { font-size: var(--step-4); }
+  .head p { margin-top: var(--space-3); max-width: var(--measure); color: var(--ink-soft); font-size: var(--step-1); line-height: 1.5; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  .mascot { margin: 0; justify-self: center; width: min(78vw, 400px); }
+  .mascot img { width: 100%; height: auto; }
+
+  h3 { font-size: var(--step-3); color: var(--red); }
+  .note { display: flex; align-items: flex-end; gap: 0.25rem; margin-bottom: var(--space-1); }
+  .arrow { width: 72px; height: 42px; flex: none; }
+  .lede { margin-top: var(--space-2); max-width: 30rem; }
+  ul { margin-top: var(--space-3); border-top: 1px solid rgb(43 24 19 / 0.18); }
+  li {
+    padding-block: 0.7rem;
+    border-bottom: 1px solid rgb(43 24 19 / 0.18);
+    font-weight: 500;
+  }
+  .photo { margin-top: var(--space-4); aspect-ratio: 5 / 4; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* On phones the arrows point up at the logo above. */
+  @media (max-width: 959px) {
+    .arrow { transform: rotate(-60deg) scaleX(-1); }
+    .savory .arrow { transform: rotate(-40deg); }
+  }
+
+  @media (min-width: 960px) {
+    .grid {
+      grid-template-columns: 1fr minmax(300px, 400px) 1fr;
+      align-items: start;
+      gap: var(--space-4);
+    }
+    .mascot { grid-column: 2; grid-row: 1; width: 100%; position: sticky; top: 12vh; }
+    .sweet { grid-column: 1; grid-row: 1; padding-top: var(--space-5); }
+    .savory { grid-column: 3; grid-row: 1; padding-top: calc(var(--space-6) * 1.6); }
+    /* Sweet's arrow reaches right to the cake; savory's reaches left to the skillet. */
+    .sweet .note { justify-content: flex-end; }
+    .savory .note { flex-direction: row-reverse; justify-content: flex-end; }
+    .savory .arrow { transform: scaleX(-1); }
+    .sweet h3, .sweet .lede, .sweet ul { margin-right: var(--space-2); }
+  }
+</style>
