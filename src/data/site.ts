@@ -7,7 +7,7 @@ export const site = {
   shortName: "ChrisRia",
   tagline: "A little bit from everywhere.", // (confirmed) Facebook bio, their words
   bio: "Homemade with love: meals and desserts for your heart.", // (confirmed) Facebook bio, lightly punctuated
-  url: "https://jtcn897shc-code.github.io/chrisria/", // TODO: swap for the real domain when there is one
+  url: "https://jtcn897shc-code.github.io/ChrisRia/", // TODO: swap for the real domain when there is one
 
   phone: {
     display: "(778) 987-1469", // (confirmed) Facebook contact info

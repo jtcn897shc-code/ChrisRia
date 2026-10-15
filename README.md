@@ -4,7 +4,7 @@ Astro static site for ChrisRia Cuisine & Bakery, 8344 Young Rd, Chilliwack BC.
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/chrisria/
+npm run dev      # http://localhost:4321/ChrisRia/
 npm run build    # static output in dist/
 ```
 

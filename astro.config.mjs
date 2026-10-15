@@ -4,5 +4,5 @@ import { defineConfig } from "astro/config";
 // or a custom domain is added, change `site` and `base` together.
 export default defineConfig({
   site: "https://jtcn897shc-code.github.io",
-  base: "/chrisria",
+  base: "/ChrisRia", // must match the repo name's exact casing
 });
