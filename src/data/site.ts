@@ -96,6 +96,9 @@ export const nav = [
   { label: "Visit", href: "#visit" },
 ];
 
+// Display headlines end in an accent full stop; split it off so it can be styled.
+export const stop = (s: string) => (s.endsWith(".") ? s.slice(0, -1) : s);
+
 export const waHref = (text: string) =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 

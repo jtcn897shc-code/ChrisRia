@@ -5,8 +5,11 @@
   Colour rules:
   - Red is text-and-fill on paper (5.3:1) and takes white text as a fill (5.9:1).
     Never red text on pink (3.8:1) below 24px.
-  - Gold is for dark grounds only (walnut 4.9:1, espresso 8.1:1). Never gold on paper.
-  - Pink is a shape colour (the logo's blob) on light grounds; text-capable only on dark grounds.
+  - Pink is the site's highlight. --pink (the logo's blob) is for fills, glows, the
+    highlighter and the stamp. --pink-hi is the same hue saturated for text on dark grounds,
+    because pale pink reads as cream at small sizes. On light grounds pink is never text.
+  - --accent is the per-ground highlight: red on light sections, pink on dark ones.
+    Every display headline ends in an accent full stop (.stop).
 */
 :root {
   --paper: #fbf0f2;      /* blush paper: logo blob diluted */
@@ -15,17 +18,20 @@
   --ink-soft: #6b4a40;   /* secondary text on paper, 7.0:1 */
   --red: #c42029;        /* the apron and the skillet */
   --red-deep: #9e1820;   /* pressed state */
-  --pink: #f0c3e3;       /* the logo's blob, sampled */
+  --pink: #f0c3e3;       /* the logo's blob, sampled: the site's highlight */
+  --pink-rgb: 240 195 227;
+  --pink-hi: #f094d1;       /* same hue, more saturated: pink TEXT on dark grounds (espresso 8.1:1, walnut 4.7:1) */
+  --rose-rgb: 214 140 192;  /* deeper pink, vignette edges on the pink section only */
+  --accent: var(--red);     /* per-ground highlight; dark sections set it to pink */
   --walnut: #5e3823;     /* the slat wall behind the counter */
   --walnut-rgb: 94 56 35;
-  --gold: #d9ae4f;       /* the CHRISRIA letters */
   --cream: #fff8ef;      /* text on dark grounds */
   --field: #ffffff;      /* form field fill */
   --on-red: #ffffff;     /* text on red fills, 5.9:1 */
   --line: rgb(var(--ink-rgb) / 0.18);        /* hairlines on paper */
   --line-strong: rgb(var(--ink-rgb) / 0.38); /* control borders on paper */
 
-  --font-display: "Fraunces", "Georgia", serif;
+  --font-display: "Bodoni Moda", "Didot", "Georgia", serif;
   --font-body: "Figtree", system-ui, sans-serif;
   --font-hand: "Homemade Apple", "Segoe Script", cursive;
 

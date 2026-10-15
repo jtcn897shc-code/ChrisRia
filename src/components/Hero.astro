@@ -35,9 +35,11 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     </header>
 
     <div class="copy wrap">
-      <h1>
-        <span class="line">A little bit</span>
-        <span class="line">from everywhere.</span>
+      <!-- Their tagline as a lockup: the handwritten lead-in signs into the serif. -->
+      <h1 aria-label="A little bit from everywhere.">
+        <span class="line script" aria-hidden="true">a little bit</span>
+        <span class="line from" aria-hidden="true">from</span>
+        <span class="line" aria-hidden="true">everywhere<span class="stop">.</span></span>
       </h1>
       <p class="lede">
         Lunch and dinner to go, paninis, pastries and custom cakes, homemade on Young Rd in Chilliwack.
@@ -57,6 +59,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
 <style>
   .hero {
     --focus: var(--cream);
+    --accent: var(--pink-hi);
     position: relative;
     color: var(--cream);
     background: var(--walnut);
@@ -84,7 +87,8 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     position: absolute; inset: 0;
     background:
       linear-gradient(to top, rgb(var(--ink-rgb) / 0.88) 0%, rgb(var(--ink-rgb) / 0.55) 38%, rgb(var(--ink-rgb) / 0) 70%),
-      linear-gradient(to bottom, rgb(var(--ink-rgb) / 0.55), rgb(var(--ink-rgb) / 0) 22%);
+      linear-gradient(to bottom, rgb(var(--ink-rgb) / 0.55), rgb(var(--ink-rgb) / 0) 22%),
+      radial-gradient(130% 100% at 62% 40%, rgb(var(--ink-rgb) / 0) 45%, rgb(var(--ink-rgb) / 0.6) 100%); /* vignette */
   }
 
   .bar {
@@ -94,7 +98,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
   }
   .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
   .brand img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cream); }
-  .brand span { font-family: var(--font-display); font-size: var(--step-1); }
+  .brand span { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); }
   nav ul { display: flex; gap: var(--space-3); }
   nav a, .bar-call {
     text-decoration: none; font-weight: 500;
@@ -115,19 +119,31 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     align-self: end;
     padding-bottom: calc(var(--space-5) + var(--scallop));
   }
-  /* The hero line is the brand's own tagline, so it gets the loudest cut: Fraunces at 900
-     with the soft and wonky axes on, set tight like a bakery sign, lifted off the moving
-     photo by a two-layer shadow. (The italic was tested and dropped: oversized italic serif
-     heroes are the stock AI landing page.) */
+  /* The lockup. Bodoni Moda at 700, but with the optical size pinned to 32 instead of the
+     ~96 it would auto-pick: the hairlines thicken enough to survive moving footage while it
+     still reads as Bodoni. The script lead-in is the pink highlight, tucked down into the
+     indented "from". A two-layer shadow lifts it all off the photo. */
   h1 {
     font-size: var(--step-5);
-    font-weight: 900;
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-    letter-spacing: -0.03em;
-    line-height: 0.88;
-    max-width: 10ch;
+    font-weight: 700;
+    font-variation-settings: "opsz" 32;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
     text-shadow: var(--shadow-text);
   }
+  .script {
+    font-family: var(--font-hand);
+    font-weight: 400;
+    font-size: max(0.4em, 1.4rem); /* never thinner than 1.4rem over the busy photo */
+    line-height: 1;
+    letter-spacing: 0;
+    color: var(--pink-hi);
+    rotate: -6deg; /* independent of the entrance animation's transform */
+    transform-origin: left bottom;
+    margin: 0 0 -0.35em 0.15em;
+    text-shadow: 0 2px 14px rgb(var(--ink-rgb) / 0.6);
+  }
+  .from { padding-left: 1.7em; }
   .line { display: block; }
   .lede {
     text-shadow: 0 1px 12px rgb(var(--ink-rgb) / 0.6);
@@ -144,8 +160,9 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
       animation: rise 900ms var(--ease-out) both;
     }
     .line:nth-child(2) { animation-delay: 60ms; }
-    .lede { animation-delay: 160ms; }
-    .ctas { animation-delay: 220ms; }
+    .line:nth-child(3) { animation-delay: 120ms; }
+    .lede { animation-delay: 200ms; }
+    .ctas { animation-delay: 260ms; }
   }
   @keyframes rise {
     from { opacity: 0; transform: translateY(24px); }

@@ -12,7 +12,7 @@ const cols = [
 <section class="hands scallop-top" id="menu" aria-labelledby="hands-title">
   <div class="wrap">
     <div class="head">
-      <h2 id="hands-title">Cake in one hand. Skillet in the other.</h2>
+      <h2 id="hands-title">Cake in one hand. Skillet in the other<span class="stop">.</span></h2>
       <p>
         Our logo isn't decoration. It's the menu: a pastry case and a hot kitchen behind the same counter,
         so the birthday cake and the dinner for after can come home in one trip.
@@ -56,7 +56,10 @@ const cols = [
 <style>
   .hands {
     overflow-x: clip; /* the savory photo bleeds off the edge; clip (not hidden) keeps the mascot sticky */
-    background: var(--paper);
+    /* Blush vignette: the paper warms to the logo's pink at the edges. */
+    background:
+      radial-gradient(140% 100% at 50% 40%, rgb(var(--pink-rgb) / 0) 55%, rgb(var(--pink-rgb) / 0.6) 100%),
+      var(--paper);
     padding-block: calc(var(--space-6) + var(--scallop)) var(--space-6);
     z-index: 3;
   }

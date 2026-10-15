@@ -1,5 +1,5 @@
 ---
-import { site, grazing, orderKinds, defaultOrderText } from "../data/site";
+import { site, grazing, orderKinds, defaultOrderText, stop } from "../data/site";
 import { images } from "../data/images";
 import Icon from "./Icon.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -7,7 +7,7 @@ const a = (p: string) => `${base}/${p}`;
 const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", ");
 const img = images.grazing;
 ---
-<section class="grazing" id="grazing" aria-labelledby="grazing-title">
+<section class="grazing on-dark" id="grazing" aria-labelledby="grazing-title">
   <figure class="spread" data-reveal>
     <div class="clip">
       <img
@@ -19,7 +19,7 @@ const img = images.grazing;
 
   <div class="wrap body">
     <div class="pitch">
-      <h2 id="grazing-title">{grazing.title}</h2>
+      <h2 id="grazing-title">{stop(grazing.title)}<span class="stop">.</span></h2>
       <p class="text">{grazing.body}</p>
       <p class="contents"><span class="visually-hidden">On the table: </span>{grazing.contents.join(", ")}.</p>
     </div>
@@ -74,8 +74,8 @@ const img = images.grazing;
       <input type="hidden" name="text" value={defaultOrderText} data-text />
       <button class="btn send" type="submit"><Icon name="whatsapp" /> Send on WhatsApp</button>
       <p class="alt">
-        Rather talk? Call <a href={site.phone.href}>{site.phone.display}</a>, or
-        <a href={`mailto:${site.email}?subject=${encodeURIComponent("Order enquiry")}&body=${encodeURIComponent(defaultOrderText)}`} data-mail={site.email}>send it by email</a>.
+        Rather talk? Call <a class="mark" href={site.phone.href}>{site.phone.display}</a>, or
+        <a class="mark" href={`mailto:${site.email}?subject=${encodeURIComponent("Order enquiry")}&body=${encodeURIComponent(defaultOrderText)}`} data-mail={site.email}>send it by email</a>.
       </p>
     </form>
   </div>
@@ -83,14 +83,21 @@ const img = images.grazing;
 
 <style>
   .grazing {
-    --focus: var(--cream);
     position: relative; z-index: 3;
-    background: var(--ink);
+    /* Warm walnut glow from above, espresso at the edges: a soft vignette, not a flat ground. */
+    background:
+      radial-gradient(90% 55% at 50% 0%, rgb(var(--walnut-rgb) / 0.55), rgb(var(--walnut-rgb) / 0) 70%),
+      radial-gradient(140% 100% at 50% 60%, rgb(0 0 0 / 0) 60%, rgb(0 0 0 / 0.28) 100%),
+      var(--ink);
     color: var(--cream);
     padding-bottom: var(--space-6);
   }
   .spread { margin: 0; }
-  .clip { overflow: hidden; }
+  .clip { overflow: hidden; position: relative; }
+  .clip::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 95% at 50% 45%, rgb(var(--ink-rgb) / 0) 50%, rgb(var(--ink-rgb) / 0.5) 100%);
+  }
   .clip img { width: 100%; height: min(78svh, 64vw); min-height: 320px; object-fit: cover; object-position: 50% 45%; }
 
   /* Reveal: clip lives on the inner wrapper, never on the observed element (an element
@@ -109,7 +116,7 @@ const img = images.grazing;
   }
   h2 { font-size: var(--step-4); max-width: 14ch; }
   .text { margin-top: var(--space-3); max-width: var(--measure); font-size: var(--step-1); line-height: 1.5; }
-  .contents { margin-top: var(--space-3); max-width: var(--measure); color: var(--gold); font-weight: 500; }
+  .contents { margin-top: var(--space-3); max-width: var(--measure); color: var(--pink-hi); font-weight: 500; }
 
   .composer {
     background: var(--paper); color: var(--ink);
@@ -158,7 +165,7 @@ const img = images.grazing;
   }
   .send { justify-self: start; }
   .alt { color: var(--ink-soft); }
-  .alt a { color: var(--ink); font-weight: 600; }
+  .alt a { color: var(--ink); }
 
   @media (min-width: 960px) {
     .body { grid-template-columns: 1fr minmax(0, 30rem); align-items: start; }

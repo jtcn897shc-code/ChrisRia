@@ -25,8 +25,8 @@ img, video { height: auto; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 560;
-  font-variation-settings: "SOFT" 100, "WONK" 0; /* Fraunces: soft, rounded serifs like piped icing */
+  font-weight: 600;
+  font-optical-sizing: auto; /* Bodoni Moda: true display contrast on paper */
   line-height: 1.02;
   letter-spacing: -0.02em;
   margin: 0;
@@ -35,6 +35,28 @@ h1, h2, h3 {
 p { margin: 0; text-wrap: pretty; }
 a { color: inherit; }
 a[href^="tel:"] { white-space: nowrap; }
+
+/* The accent full stop that ends every display headline. */
+.stop { color: var(--accent); }
+
+/* Dark grounds swap the highlight to pink. */
+.on-dark { --accent: var(--pink-hi); --focus: var(--cream); }
+
+/* Highlighter link on light grounds: a pink marker stroke behind the lower half of the text. */
+.mark {
+  text-decoration-line: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: 0.42em;
+  text-underline-offset: -0.22em;
+  text-decoration-skip-ink: none;
+  font-weight: 600;
+}
+@media (hover: hover) and (pointer: fine) {
+  .mark { transition: text-decoration-color 200ms ease; }
+  .mark:hover { text-decoration-color: rgb(var(--rose-rgb)); }
+}
+/* Thin pink underline for links on dark grounds. */
+.on-dark a:not(.btn) { text-decoration-color: var(--pink-hi); text-underline-offset: 0.2em; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible {
@@ -105,21 +127,25 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Walnut slat wall: a texture cut from their own counter photo ----------
    The component sets --slats to the image URL (it needs the site base path).
-   Text never sits on the raw slats (gold drops to 2.6:1 on the light slats):
-   the wall fades into solid walnut behind the copy. */
+   Text never sits on the raw slats (pink drops to 3.5:1 on the light slats):
+   the wall fades into solid walnut behind the copy, and an espresso vignette
+   closes the edges. */
 .slats {
   --focus: var(--cream);
+  --accent: var(--pink-hi);
   background-color: var(--walnut);
   background-image:
+    radial-gradient(130% 110% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
     linear-gradient(to bottom, rgb(var(--walnut-rgb) / 0) 0 30%, var(--walnut) 52%),
     var(--slats, none);
-  background-size: 100% 100%, 352px 100%;
-  background-repeat: no-repeat, repeat-x;
+  background-size: 100% 100%, 100% 100%, 352px 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
   color: var(--cream);
 }
 @media (min-width: 900px) {
   .slats {
     background-image:
+      radial-gradient(120% 130% at 60% 50%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
       linear-gradient(to right, rgb(var(--walnut-rgb) / 0) 0 34%, var(--walnut) 52%),
       var(--slats, none);
   }
@@ -130,7 +156,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .blob-alt { clip-path: url(#blob-alt); }
 
 /* Photo hover: barely-there feedback on fine pointers only. */
-.photo-zoom { overflow: hidden; }
+.photo-zoom { overflow: hidden; position: relative; }
+/* Every photo gets the same soft espresso vignette, so phone snapshots read as one set. */
+.photo-zoom::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.32) 100%);
+}
 .photo-zoom img { transition: transform 200ms ease; }
 @media (hover: hover) and (pointer: fine) {
   .photo-zoom:hover img { transform: scale(1.02); }

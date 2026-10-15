@@ -23,26 +23,30 @@ Sampled from the logo and the shop, not picked from a swatch book.
 | `--paper` | #FBF0F2 | logo blob, diluted | page ground |
 | `--ink` | #2B1813 | the chocolate cake | text, dark sections |
 | `--red` | #C42029 | apron and skillet | CTAs, sweet/savory headings |
-| `--pink` | #F0C3E3 | logo blob (sampled #F0C0E4) | cakes section, stamp, message bubble |
+| `--pink` | #F0C3E3 | logo blob (sampled #F0C0E4) | the highlight: cakes section, stamp, bubble, highlighter links, blush vignette |
+| `--pink-hi` | #F094D1 | same hue, saturated | pink *text* on dark grounds: hero script, headline stops, labels, underlines |
 | `--walnut` | #5E3823 | slat wall behind the counter | visit section, hero fallback |
-| `--gold` | #D9AE4F | the CHRISRIA letters | labels on dark grounds only |
 
 Contrast (WCAG): ink/paper 15.2, red/paper 5.3, white/red 5.9, ink/pink 11.0, red/pink **3.8**
-(large text only), gold/walnut 4.9, gold/ink 8.1, cream/walnut 9.6.
+(large text only), pink-hi/ink 7.9, pink-hi/walnut 4.8, cream/walnut 9.6.
 
-Rules: gold never sits on paper. Red is never small text on pink. Pink is a shape colour
-on light grounds.
+**Pink highlights the site.** `--accent` is the per-ground highlight: red on light sections,
+`--pink-hi` on dark ones (`.on-dark`). Every display headline ends in an accent full stop
+(`.stop`). Links on paper get a pink highlighter stroke (`.mark`); links on dark grounds get a
+thin pink underline. Pale pink is never text: at small sizes it reads as cream. Gold was retired
+so pink is the only highlight.
 
 ## Type
 
-- **Fraunces** for display, with the `SOFT` axis at 100 so the serifs round off like
-  piped icing. Section heads are set at 560. The hero tagline is the one loud line: 900
-  weight, `WONK` on, tight leading, lifted off the photo by `--shadow-text`, so it reads
-  like a bakery sign. It replaced Gloock, which read bland over the video. Rejected
-  alternatives: Bodoni Moda (its hairlines vanish over moving footage) and Fraunces italic
-  (the stock AI-startup hero, flagged by the design detector).
+- **Bodoni Moda** for display. Section headings use automatic optical sizing for true
+  Didone contrast on paper. The hero tagline is a lockup: the handwritten "a little bit" in
+  `--pink-hi` (Homemade Apple, tilted -6°) signs into an indented "from", over "everywhere"
+  and a pink full stop. The hero sets Bodoni at 700 with the optical size pinned to 32, not
+  the ~96 it would auto-pick, so the hairlines are thick enough to survive moving video.
+  `--shadow-text` lifts it off the photo. Tried and rejected: Gloock (bland), Fraunces Soft
+  (good but heavy) and Fraunces italic (flagged as the stock AI hero).
 - **Figtree** for body and UI: round, friendly, legible at 16–17px.
-- **Homemade Apple**: handwritten notes, at most three on the page. The font name
+- **Homemade Apple**: the hero lead-in and handwritten notes, no more than four uses on the page. The font name
   matches the brand's "homemade" voice.
 
 Scale is 1.25 from a 17px body (`--step--1` … `--step-5`).
@@ -56,6 +60,10 @@ Scale is 1.25 from a 17px body (`--step--1` … `--step-5`).
 - **The plate**: a circular photo with a cream rim (Grainhaus).
 - Two radii only: `--radius-pill` for small controls, `--radius-soft` (14px) for every rounded rectangle (form panel, fields, message bubble, storefront photo, reveal clip). Circles (plate, stamp, step numbers) are shapes.
 - One elevation: `--shadow-lift`, used by the plate and the desktop order pill.
+- **Vignettes** close every frame softly. Espresso on photos (`.photo-zoom::after`,
+  the grazing photo), the hero (in the scrim) and the walnut wall. A warm walnut glow from above
+  on the espresso grazing section. Blush pink at the edges of the paper section, and a deeper
+  rose (`--rose-rgb`) on the pink cakes section, where ink stays at 8.5:1 even in the corners.
 - Translucent ink only through `--ink-rgb`, `--line` and `--line-strong`. No raw hex in components.
 
 ## Motion
