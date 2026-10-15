@@ -25,10 +25,10 @@ img, video { height: auto; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-optical-sizing: auto; /* Bodoni Moda: true display contrast on paper */
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em; /* tight, chunky, Roulé-style */
+  text-transform: lowercase; /* visual only: the source text keeps its case for screen readers */
   margin: 0;
   text-wrap: balance;
 }
@@ -81,7 +81,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Handwritten notes: the Showit-style annotation, used sparingly (3 on the page). */
 .hand {
   font-family: var(--font-hand);
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   line-height: 1.5;
   color: var(--red);
   transform: rotate(-4deg);
@@ -128,14 +128,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Walnut slat wall: a texture cut from their own counter photo ----------
    The component sets --slats to the image URL (it needs the site base path).
    Text never sits on the raw slats (pink drops to 3.5:1 on the light slats):
-   the wall fades into solid walnut behind the copy, and an espresso vignette
+   the wall fades into solid walnut behind the copy, and a black vignette
    closes the edges. */
 .slats {
   --focus: var(--cream);
   --accent: var(--pink-hi);
   background-color: var(--walnut);
   background-image:
-    radial-gradient(130% 110% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
+    radial-gradient(130% 110% at 50% 45%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.42) 100%),
     linear-gradient(to bottom, rgb(var(--walnut-rgb) / 0) 0 30%, var(--walnut) 52%),
     var(--slats, none);
   background-size: 100% 100%, 100% 100%, 352px 100%;
@@ -145,7 +145,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 900px) {
   .slats {
     background-image:
-      radial-gradient(120% 130% at 60% 50%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
+      radial-gradient(120% 130% at 60% 50%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.42) 100%),
       linear-gradient(to right, rgb(var(--walnut-rgb) / 0) 0 34%, var(--walnut) 52%),
       var(--slats, none);
   }
@@ -157,10 +157,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Photo hover: barely-there feedback on fine pointers only. */
 .photo-zoom { overflow: hidden; position: relative; }
-/* Every photo gets the same soft espresso vignette, so phone snapshots read as one set. */
+/* Every photo gets the same soft black vignette, so phone snapshots read as one set. */
 .photo-zoom::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(120% 100% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.32) 100%);
+  background: var(--vignette-photo);
 }
 .photo-zoom img { transition: transform 200ms ease; }
 @media (hover: hover) and (pointer: fine) {

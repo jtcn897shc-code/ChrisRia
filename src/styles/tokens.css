@@ -31,9 +31,9 @@
   --line: rgb(var(--ink-rgb) / 0.18);        /* hairlines on paper */
   --line-strong: rgb(var(--ink-rgb) / 0.38); /* control borders on paper */
 
-  --font-display: "Bodoni Moda", "Didot", "Georgia", serif;
+  --font-display: "Gabarito", "Arial Black", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, sans-serif;
-  --font-hand: "Homemade Apple", "Segoe Script", cursive;
+  --font-hand: "Yellowtail", "Segoe Script", cursive;
 
   /* Type scale: 1.25 ratio on a 17px body */
   --step--1: 0.875rem;
@@ -63,7 +63,10 @@
   /* One elevation: offset, soft, ink-tinted. */
   --shadow-lift: 0 24px 48px -24px rgb(var(--ink-rgb) / 0.55);
   /* Type over photography: a tight contact shadow plus a wide soft one. */
-  --shadow-text: 0 1px 2px rgb(var(--ink-rgb) / 0.35), 0 10px 40px rgb(var(--ink-rgb) / 0.55);
+  --shadow-text: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 40px rgb(0 0 0 / 0.5);
+  /* Vignettes are neutral black and subtle everywhere: they frame, they don't tint. */
+  --vignette-photo: radial-gradient(120% 100% at 50% 45%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.3) 100%);
+  --vignette-light: radial-gradient(140% 100% at 50% 45%, rgb(0 0 0 / 0) 60%, rgb(0 0 0 / 0.07) 100%);
 
   /* Motion (from the animate skill's tables, not hand-rolled) */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

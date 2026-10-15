@@ -38,7 +38,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
       <!-- Their tagline as a lockup: the handwritten lead-in signs into the serif. -->
       <h1 aria-label="A little bit from everywhere.">
         <span class="line script" aria-hidden="true">a little bit</span>
-        <span class="line from" aria-hidden="true">from</span>
+        <span class="line" aria-hidden="true">from</span>
         <span class="line" aria-hidden="true">everywhere<span class="stop">.</span></span>
       </h1>
       <p class="lede">
@@ -86,9 +86,9 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
   .scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to top, rgb(var(--ink-rgb) / 0.88) 0%, rgb(var(--ink-rgb) / 0.55) 38%, rgb(var(--ink-rgb) / 0) 70%),
-      linear-gradient(to bottom, rgb(var(--ink-rgb) / 0.55), rgb(var(--ink-rgb) / 0) 22%),
-      radial-gradient(130% 100% at 62% 40%, rgb(var(--ink-rgb) / 0) 45%, rgb(var(--ink-rgb) / 0.6) 100%); /* vignette */
+      linear-gradient(to top, rgb(0 0 0 / 0.75) 0%, rgb(0 0 0 / 0.45) 38%, rgb(0 0 0 / 0) 70%),
+      linear-gradient(to bottom, rgb(0 0 0 / 0.45), rgb(0 0 0 / 0) 22%),
+      radial-gradient(130% 100% at 62% 40%, rgb(0 0 0 / 0) 45%, rgb(0 0 0 / 0.5) 100%); /* vignette */
   }
 
   .bar {
@@ -98,7 +98,7 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
   }
   .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
   .brand img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cream); }
-  .brand span { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); }
+  .brand span { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; font-size: var(--step-1); }
   nav ul { display: flex; gap: var(--space-3); }
   nav a, .bar-call {
     text-decoration: none; font-weight: 500;
@@ -119,34 +119,33 @@ const srcset = (s: string) => s.split(", ").map((x) => `${base}/${x}`).join(", "
     align-self: end;
     padding-bottom: calc(var(--space-5) + var(--scallop));
   }
-  /* The lockup. Bodoni Moda at 700, but with the optical size pinned to 32 instead of the
-     ~96 it would auto-pick: the hairlines thicken enough to survive moving footage while it
-     still reads as Bodoni. The script lead-in is the pink highlight, tucked down into the
-     indented "from". A two-layer shadow lifts it all off the photo. */
+  /* The lockup, a hybrid of their handwriting and the Roulé reference: a bold pink brush
+     script leads into chunky, tightly set lowercase. Flush left, no stagger. */
   h1 {
-    font-size: var(--step-5);
-    font-weight: 700;
-    font-variation-settings: "opsz" 32;
-    letter-spacing: -0.02em;
-    line-height: 0.9;
+    /* Scales with the phone's width so "everywhere." fills the column instead of sitting small. */
+    font-size: clamp(3.4rem, 15.5vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 0.86;
+    text-transform: none;
     text-shadow: var(--shadow-text);
   }
   .script {
     font-family: var(--font-hand);
     font-weight: 400;
-    font-size: max(0.4em, 1.4rem); /* never thinner than 1.4rem over the busy photo */
+    font-size: max(0.68em, 2.8rem); /* prominent enough to hold its own on a phone */
+    -webkit-text-stroke: 0.6px currentColor; /* thickens the brush stroke a touch */
     line-height: 1;
     letter-spacing: 0;
     color: var(--pink-hi);
-    rotate: -6deg; /* independent of the entrance animation's transform */
+    rotate: -7deg; /* independent of the entrance animation's transform */
     transform-origin: left bottom;
-    margin: 0 0 -0.35em 0.15em;
-    text-shadow: 0 2px 14px rgb(var(--ink-rgb) / 0.6);
+    margin: 0 0 -0.04em 0.04em;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.55);
   }
-  .from { padding-left: 1.7em; }
   .line { display: block; }
   .lede {
-    text-shadow: 0 1px 12px rgb(var(--ink-rgb) / 0.6);
+    text-shadow: 0 1px 12px rgb(0 0 0 / 0.55);
     margin-top: var(--space-3);
     max-width: 30rem;
     font-size: var(--step-1);
