@@ -38,16 +38,19 @@ so pink is the only highlight.
 
 ## Type
 
-- **Bodoni Moda** for display. Section headings use automatic optical sizing for true
-  Didone contrast on paper. The hero tagline is a lockup: the handwritten "a little bit" in
-  `--pink-hi` (Homemade Apple, tilted -6°) signs into an indented "from", over "everywhere"
-  and a pink full stop. The hero sets Bodoni at 700 with the optical size pinned to 32, not
-  the ~96 it would auto-pick, so the hairlines are thick enough to survive moving video.
-  `--shadow-text` lifts it off the photo. Tried and rejected: Gloock (bland), Fraunces Soft
-  (good but heavy) and Fraunces italic (flagged as the stock AI hero).
+- **Gabarito** (800–900) for display: chunky, tightly tracked (-0.045em), and lowercase
+  via CSS (source text keeps its case for screen readers). The Roulé reference supplied this
+  register. The brand name "ChrisRia" keeps its capitals. Small body-font labels never go
+  lowercase, so proper nouns like "Young Rd" stay correct.
+- **The hero lockup** is the hybrid: the pink **Yellowtail** brush script "a little bit"
+  (tilted -7°, at least 2.3rem, a 0.6px stroke so it holds up on phones) leads into "from /
+  everywhere." in Gabarito 900, flush left, with a pink full stop. On phones the size scales
+  with the screen (`clamp(3.4rem, 15.5vw, 6rem)`) so "everywhere." fills the column.
+  Tried and rejected along the way: Gloock (bland), Fraunces Soft (heavy), Fraunces italic
+  (the stock AI hero) and Bodoni Moda (it read "off" to the client).
 - **Figtree** for body and UI: round, friendly, legible at 16–17px.
-- **Homemade Apple**: the hero lead-in and handwritten notes, no more than four uses on the page. The font name
-  matches the brand's "homemade" voice.
+- **Yellowtail**: the hero lead-in and the handwritten notes ("this hand", "that hand", the
+  cake caption). Bold enough to read over photos, unlike the thinner Homemade Apple it replaced.
 
 Scale is 1.25 from a 17px body (`--step--1` … `--step-5`).
 
@@ -60,10 +63,10 @@ Scale is 1.25 from a 17px body (`--step--1` … `--step-5`).
 - **The plate**: a circular photo with a cream rim (Grainhaus).
 - Two radii only: `--radius-pill` for small controls, `--radius-soft` (14px) for every rounded rectangle (form panel, fields, message bubble, storefront photo, reveal clip). Circles (plate, stamp, step numbers) are shapes.
 - One elevation: `--shadow-lift`, used by the plate and the desktop order pill.
-- **Vignettes** close every frame softly. Espresso on photos (`.photo-zoom::after`,
-  the grazing photo), the hero (in the scrim) and the walnut wall. A warm walnut glow from above
-  on the espresso grazing section. Blush pink at the edges of the paper section, and a deeper
-  rose (`--rose-rgb`) on the pink cakes section, where ink stays at 8.5:1 even in the corners.
+- **Vignettes** are subtle and neutral black, never tinted: `--vignette-photo` (30% at the
+  corners) on every photo and the grazing table, deeper on the hero scrim and the walnut wall,
+  and `--vignette-light` (7%) on the paper and pink sections, which frames them without muddying
+  the colour.
 - Translucent ink only through `--ink-rgb`, `--line` and `--line-strong`. No raw hex in components.
 
 ## Motion

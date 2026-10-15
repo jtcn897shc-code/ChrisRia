@@ -84,10 +84,9 @@ const img = images.grazing;
 <style>
   .grazing {
     position: relative; z-index: 3;
-    /* Warm walnut glow from above, espresso at the edges: a soft vignette, not a flat ground. */
+    /* Subtle black vignette at the edges, not a flat ground. */
     background:
-      radial-gradient(90% 55% at 50% 0%, rgb(var(--walnut-rgb) / 0.55), rgb(var(--walnut-rgb) / 0) 70%),
-      radial-gradient(140% 100% at 50% 60%, rgb(0 0 0 / 0) 60%, rgb(0 0 0 / 0.28) 100%),
+      radial-gradient(140% 100% at 50% 50%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.35) 100%),
       var(--ink);
     color: var(--cream);
     padding-bottom: var(--space-6);
@@ -96,7 +95,7 @@ const img = images.grazing;
   .clip { overflow: hidden; position: relative; }
   .clip::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(120% 95% at 50% 45%, rgb(var(--ink-rgb) / 0) 50%, rgb(var(--ink-rgb) / 0.5) 100%);
+    background: radial-gradient(120% 95% at 50% 45%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / 0.42) 100%);
   }
   .clip img { width: 100%; height: min(78svh, 64vw); min-height: 320px; object-fit: cover; object-position: 50% 45%; }
 
