@@ -1,0 +1,77 @@
+/*
+  ChrisRia design tokens. Colours are sampled from the logo and the shop itself
+  (see DESIGN.md for sources and contrast ratios).
+
+  Colour rules:
+  - Red is text-and-fill on paper (5.3:1) and takes white text as a fill (5.9:1).
+    Never red text on pink (3.8:1) below 24px.
+  - Pink is the site's highlight. --pink (the logo's blob) is for fills, glows, the
+    highlighter and the stamp. --pink-hi is the same hue saturated for text on dark grounds,
+    because pale pink reads as cream at small sizes. On light grounds pink is never text.
+  - --accent is the per-ground highlight: red on light sections, pink on dark ones.
+    Every display headline ends in an accent full stop (.stop).
+*/
+:root {
+  --paper: #fbf0f2;      /* blush paper: logo blob diluted */
+  --ink: #2b1813;        /* espresso: the chocolate cake */
+  --ink-rgb: 43 24 19;   /* for translucent ink: rgb(var(--ink-rgb) / a) */
+  --ink-soft: #6b4a40;   /* secondary text on paper, 7.0:1 */
+  --red: #c42029;        /* the apron and the skillet */
+  --red-deep: #9e1820;   /* pressed state */
+  --pink: #f0c3e3;       /* the logo's blob, sampled: the site's highlight */
+  --pink-rgb: 240 195 227;
+  --pink-hi: #f094d1;       /* same hue, more saturated: pink TEXT on dark grounds (espresso 8.1:1, walnut 4.7:1) */
+  --rose-rgb: 214 140 192;  /* deeper pink, vignette edges on the pink section only */
+  --accent: var(--red);     /* per-ground highlight; dark sections set it to pink */
+  --walnut: #5e3823;     /* the slat wall behind the counter */
+  --walnut-rgb: 94 56 35;
+  --cream: #fff8ef;      /* text on dark grounds */
+  --field: #ffffff;      /* form field fill */
+  --on-red: #ffffff;     /* text on red fills, 5.9:1 */
+  --line: rgb(var(--ink-rgb) / 0.18);        /* hairlines on paper */
+  --line-strong: rgb(var(--ink-rgb) / 0.38); /* control borders on paper */
+
+  --font-display: "Bodoni Moda", "Didot", "Georgia", serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+  --font-hand: "Homemade Apple", "Segoe Script", cursive;
+
+  /* Type scale: 1.25 ratio on a 17px body */
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3125rem;
+  --step-2: 1.625rem;
+  --step-3: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem);
+  --step-4: clamp(2.4rem, 1.6rem + 3.2vw, 4rem);
+  --step-5: clamp(3rem, 1.6rem + 5vw, 6rem);
+
+  /* Spacing: spacious marketing rhythm */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: clamp(5rem, 3rem + 6vw, 9rem);
+  --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
+  --measure: 34rem;
+
+  /* Radii: two only. Pill for small controls; 14px for every rectangle that rounds
+     (form panel, fields, message bubble, photos). Circles (plate, stamp, step numbers)
+     are shapes, not radii. Blob photos use the logo's clip path. */
+  --radius-pill: 999px;
+  --radius-soft: 14px;
+
+  /* One elevation: offset, soft, ink-tinted. */
+  --shadow-lift: 0 24px 48px -24px rgb(var(--ink-rgb) / 0.55);
+  /* Type over photography: a tight contact shadow plus a wide soft one. */
+  --shadow-text: 0 1px 2px rgb(var(--ink-rgb) / 0.35), 0 10px 40px rgb(var(--ink-rgb) / 0.55);
+
+  /* Motion (from the animate skill's tables, not hand-rolled) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-press: 140ms;
+  --dur-ui: 240ms;
+  --dur-reveal: 600ms;
+
+  /* Scallop radius (bakery box edge / awning) */
+  --scallop: 16px;
+}

@@ -1,0 +1,168 @@
+@import "./tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img, video, svg { display: block; max-width: 100%; }
+
+/* Browser surfaces carry the palette too. */
+::selection { background: var(--pink); color: var(--ink); }
+html { accent-color: var(--red); caret-color: var(--red); scrollbar-color: var(--walnut) var(--paper); }
+img, video { height: auto; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-optical-sizing: auto; /* Bodoni Moda: true display contrast on paper */
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; }
+a[href^="tel:"] { white-space: nowrap; }
+
+/* The accent full stop that ends every display headline. */
+.stop { color: var(--accent); }
+
+/* Dark grounds swap the highlight to pink. */
+.on-dark { --accent: var(--pink-hi); --focus: var(--cream); }
+
+/* Highlighter link on light grounds: a pink marker stroke behind the lower half of the text. */
+.mark {
+  text-decoration-line: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: 0.42em;
+  text-underline-offset: -0.22em;
+  text-decoration-skip-ink: none;
+  font-weight: 600;
+}
+@media (hover: hover) and (pointer: fine) {
+  .mark { transition: text-decoration-color 200ms ease; }
+  .mark:hover { text-decoration-color: rgb(var(--rose-rgb)); }
+}
+/* Thin pink underline for links on dark grounds. */
+.on-dark a:not(.btn) { text-decoration-color: var(--pink-hi); text-underline-offset: 0.2em; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 3px solid var(--focus, var(--ink));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip {
+  position: absolute; left: var(--gutter); top: -4rem; z-index: 100;
+  background: var(--ink); color: var(--cream); padding: 0.6rem 1rem; border-radius: var(--radius-pill);
+}
+.skip:focus { top: 1rem; }
+
+.wrap { width: min(100% - 2 * var(--gutter), 76rem); margin-inline: auto; }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Handwritten notes: the Showit-style annotation, used sparingly (3 on the page). */
+.hand {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--red);
+  transform: rotate(-4deg);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --bg: var(--red);
+  --fg: var(--on-red);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  min-height: 48px; padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg); color: var(--fg);
+  font: 600 var(--step-0)/1.1 var(--font-body);
+  text-decoration: none; border: 2px solid var(--bg);
+  cursor: pointer; user-select: none;
+  transition: transform var(--dur-press) var(--ease-out), background-color 200ms ease, border-color 200ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn svg { width: 1.25em; height: 1.25em; flex: none; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { --bg: var(--red-deep); }
+}
+.btn-line {
+  --bg: transparent; --fg: currentColor;
+  border-color: currentColor;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-line:hover { --bg: rgb(255 255 255 / 0.12); }
+}
+
+/* ---------- Scalloped top edge (the bakery-box / awning edge) ---------- */
+.scallop-top {
+  position: relative;
+  margin-top: calc(-1 * var(--scallop));
+  -webkit-mask:
+    radial-gradient(var(--scallop) at 50% var(--scallop), #000 97%, #0000) 50% 0 / calc(var(--scallop) * 2) calc(var(--scallop) * 2) repeat-x,
+    linear-gradient(#000 0 0) 0 var(--scallop) / 100% 100% no-repeat;
+          mask:
+    radial-gradient(var(--scallop) at 50% var(--scallop), #000 97%, #0000) 50% 0 / calc(var(--scallop) * 2) calc(var(--scallop) * 2) repeat-x,
+    linear-gradient(#000 0 0) 0 var(--scallop) / 100% 100% no-repeat;
+}
+
+/* ---------- Walnut slat wall: a texture cut from their own counter photo ----------
+   The component sets --slats to the image URL (it needs the site base path).
+   Text never sits on the raw slats (pink drops to 3.5:1 on the light slats):
+   the wall fades into solid walnut behind the copy, and an espresso vignette
+   closes the edges. */
+.slats {
+  --focus: var(--cream);
+  --accent: var(--pink-hi);
+  background-color: var(--walnut);
+  background-image:
+    radial-gradient(130% 110% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
+    linear-gradient(to bottom, rgb(var(--walnut-rgb) / 0) 0 30%, var(--walnut) 52%),
+    var(--slats, none);
+  background-size: 100% 100%, 100% 100%, 352px 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  color: var(--cream);
+}
+@media (min-width: 900px) {
+  .slats {
+    background-image:
+      radial-gradient(120% 130% at 60% 50%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.5) 100%),
+      linear-gradient(to right, rgb(var(--walnut-rgb) / 0) 0 34%, var(--walnut) 52%),
+      var(--slats, none);
+  }
+}
+
+/* ---------- Blob photos: the logo's pink blob as an image mask ---------- */
+.blob { clip-path: url(#blob); }
+.blob-alt { clip-path: url(#blob-alt); }
+
+/* Photo hover: barely-there feedback on fine pointers only. */
+.photo-zoom { overflow: hidden; position: relative; }
+/* Every photo gets the same soft espresso vignette, so phone snapshots read as one set. */
+.photo-zoom::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 45%, rgb(var(--ink-rgb) / 0) 55%, rgb(var(--ink-rgb) / 0.32) 100%);
+}
+.photo-zoom img { transition: transform 200ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .photo-zoom:hover img { transform: scale(1.02); }
+}

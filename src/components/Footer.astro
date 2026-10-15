@@ -1,0 +1,41 @@
+---
+import { site } from "../data/site";
+import { logo } from "../data/images";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const year = new Date().getFullYear();
+---
+<footer class="foot on-dark">
+  <div class="wrap grid">
+    <div class="brand">
+      <img src={`${base}/${logo.webp}`} width="480" height="349" alt="" loading="lazy" />
+      <p class="name">{site.name}</p>
+      <p class="bio">{site.bio}</p>
+    </div>
+    <ul class="links">
+      <li><a href={site.phone.href}>{site.phone.display}</a></li>
+      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li><a href={site.address.mapsHref} target="_blank" rel="noopener">{site.address.street}, {site.address.city}</a></li>
+      <li><a href={site.socials.facebook} target="_blank" rel="noopener">Facebook</a></li>
+    </ul>
+  </div>
+  <p class="wrap legal">© {year} {site.name}, Chilliwack, BC</p>
+</footer>
+
+<style>
+  .foot {
+    --focus: var(--cream);
+    position: relative; z-index: 3;
+    background: var(--ink); color: var(--cream);
+    padding-block: var(--space-5) calc(var(--space-4) + 72px); /* room for the sticky bar */
+  }
+  .grid { display: grid; gap: var(--space-4); }
+  .brand img { width: 160px; height: auto; }
+  .name { font-family: var(--font-display); font-weight: 600; font-size: var(--step-2); margin-top: var(--space-2); }
+  .bio { opacity: 0.85; margin-top: 0.25rem; }
+  .links { display: grid; gap: 0.25rem; }
+  .links a { display: inline-block; padding-block: 0.5rem; overflow-wrap: anywhere; }
+  .legal { margin-top: var(--space-4); font-size: var(--step--1); opacity: 0.7; }
+  @media (min-width: 800px) {
+    .grid { grid-template-columns: 1fr auto; align-items: end; }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import { site, waHref, defaultOrderText } from "../data/site";
+import Icon from "./Icon.astro";
+---
+<!-- Persistent order affordance once the hero (which has its own CTAs) is behind you.
+     Without JS it stays visible from the start, so it is never unreachable. -->
+<div class="orderbar" data-orderbar>
+  <a class="btn" href={waHref(defaultOrderText)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+  <a class="btn btn-line" href={site.phone.href}><Icon name="phone" /> Call</a>
+</div>
+
+<style>
+  .orderbar {
+    position: fixed; z-index: 50;
+    left: 0; right: 0; bottom: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+    padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+    background: var(--ink); color: var(--cream);
+    --focus: var(--cream);
+    transition: transform var(--dur-ui) var(--ease-out), opacity var(--dur-ui) var(--ease-out);
+  }
+  .orderbar .btn { min-height: 48px; }
+  :global(.js) .orderbar:not(.on) { transform: translateY(100%); pointer-events: none; }
+  :global(.js) .orderbar:not(.on) a { visibility: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .orderbar:not(.on) { transform: none; opacity: 0; }
+  }
+
+  /* Desktop: a compact pill in the corner instead of a full-width bar. */
+  @media (min-width: 900px) {
+    .orderbar {
+      left: auto; right: 1.25rem; bottom: 1.25rem;
+      grid-template-columns: auto auto;
+      padding: 0.5rem; border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-lift);
+    }
+    :global(.js) .orderbar:not(.on) { transform: translateY(calc(100% + 1.25rem)); }
+  }
+</style>
+
+<script>
+  // Show once the hero is mostly scrolled past; hide again while the order form is on screen
+  // (two "send" buttons on top of each other is noise).
+  const bar = document.querySelector<HTMLElement>("[data-orderbar]");
+  const hero = document.querySelector(".hero");
+  const form = document.querySelector("#order");
+  if (bar && hero && "IntersectionObserver" in window) {
+    let pastHero = false;
+    let formVisible = false;
+    const sync = () => bar.classList.toggle("on", pastHero && !formVisible);
+    new IntersectionObserver(([e]) => {
+      pastHero = !e.isIntersecting && e.boundingClientRect.top < 0; sync();
+    }, { rootMargin: "0px 0px -60% 0px" }).observe(hero);
+    if (form) new IntersectionObserver(([e]) => { formVisible = e.isIntersecting; sync(); }, { threshold: 0.15 }).observe(form);
+  } else {
+    bar?.classList.add("on");
+  }
+</script>
