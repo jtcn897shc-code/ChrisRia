@@ -43,7 +43,7 @@ so pink is the only highlight.
   register. The brand name "ChrisRia" keeps its capitals. Small body-font labels never go
   lowercase, so proper nouns like "Young Rd" stay correct.
 - **The hero lockup** is the hybrid: the pink **Yellowtail** brush script "a little bit"
-  (tilted -7°, at least 2.3rem, a 0.6px stroke so it holds up on phones) leads into "from /
+  (tilted -7°, 0.68em with a 2.8rem floor, a 0.6px stroke so it holds up on phones) leads into "from /
   everywhere." in Gabarito 900, flush left, with a pink full stop. On phones the size scales
   with the screen (`clamp(3.4rem, 15.5vw, 6rem)`) so "everywhere." fills the column.
   Tried and rejected along the way: Gloock (bland), Fraunces Soft (heavy), Fraunces italic
